@@ -1,0 +1,46 @@
+version: "3.3"
+services: 
+    selenium-hub:
+        image: selenium/hub:3.141.59
+        ports:
+            - "4444:4444"
+    chrome:
+        image: selenium/node-chrome-debug:3.141.59
+        shm_size: "2gb"
+        environment:
+            - HUB_HOST=selenium-hub
+        depends_on: 
+            - selenium-hub
+        volumes:
+            - ./downloads:/home/seluser/Downloads
+    firefox:
+        image: selenium/node-firefox-debug:3.141.59
+        shm_size: "2gb"
+        environment:
+            - HUB_HOST=selenium-hub
+        depends_on: 
+            - selenium-hub
+        volumes:
+            - ./downloads:/home/seluser/Downloads
+    search-module:
+        image: hendryang91/selenium-docker
+        depends_on: 
+            - chrome
+            - firefox
+        environment:
+            - BROWSER=chrome
+            - HUB_HOST=selenium-hub
+            - MODULE=search-module.xml
+        volumes:
+            - ./search-output:/usr/share/udemy/test-output/
+    bookflight-module:
+        image: hendryang91/selenium-docker
+        depends_on: 
+            - chrome
+            - firefox
+        environment:
+            - BROWSER=firefox
+            - HUB_HOST=selenium-hub
+            - MODULE=book-flight-module.xml
+        volumes:
+            - ./flight-output:/usr/share/udemy/test-output/

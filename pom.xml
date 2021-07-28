@@ -37,6 +37,7 @@
                 </configuration>
             </plugin>
             <plugin>
+                <!-- plugins to copy all dependencies to be able to run this entire program successfully -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -61,7 +62,7 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>test-jar</goal>
+                            <goal>test-jar</goal> <!-- instruct maven to also package the test sources -->
                         </goals>
                     </execution>
                 </executions>

@@ -26,8 +26,9 @@ public class FlightDetailsPage {
     }
 
     public void selectPassengers(String noOfPassengers){
-        this.wait.until(ExpectedConditions.elementToBeClickable(passengers));
         Select select = new Select(passengers);
+        this.wait.until(ExpectedConditions.elementToBeClickable(passengers));
+
         select.selectByValue(noOfPassengers);
     }
 

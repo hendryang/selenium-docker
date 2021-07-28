@@ -1,5 +1,7 @@
+# docker build -t hendryang91/selenium-docker [-f File_name] .
 FROM openjdk:8u191-jre-alpine3.8
 
+RUN apk update
 RUN apk add curl jq
 
 # Workspace
@@ -7,6 +9,8 @@ WORKDIR /usr/share/udemy
 
 # ADD .jar under target from host
 # into this image
+# ADD ./target/*.jar ./
+# ADD ./target/libs/* ./libs/
 ADD target/selenium-docker.jar 			selenium-docker.jar
 ADD target/selenium-docker-tests.jar 	selenium-docker-tests.jar
 ADD target/libs							libs
@@ -15,14 +19,18 @@ ADD target/libs							libs
 # please ADD that as well
 
 # ADD suite files
+# ADD ./*.xml ./
 ADD book-flight-module.xml				book-flight-module.xml
 ADD search-module.xml					search-module.xml
 
 # ADD health check script
 ADD healthcheck.sh                      healthcheck.sh
-
+RUN chmod +x ./healthcheck.sh
+# RUN dos2unix healthcheck.sh
 # BROWSER
 # HUB_HOST
 # MODULE
 
+# ENTRYPOINT "/bin/sh"
+# ENTRYPOINT java -cp selenium-docker.jar:selenium-docker-tests.jar:libs/* -DBROWSER=$BROWSER -DHUB_HOST=$HUB_HOST org.testng.TestNG $MODULE
 ENTRYPOINT sh healthcheck.sh

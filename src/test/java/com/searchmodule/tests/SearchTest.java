@@ -19,5 +19,4 @@ public class SearchTest extends BaseTest {
 
         Assert.assertTrue(size > 0);
     }
-
 }
