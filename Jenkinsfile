@@ -1,11 +1,12 @@
 pipeline {
-    agent {label 'docker-slave'}
+    agent none
     stages {
         stage('Build Jar') {
             agent {
                 docker {
                     image 'maven:3-alpine'
                     args '-v $HOME/.m2:/root/.m2'
+                    label 'docker-slave'
                 }
 
             }
@@ -15,6 +16,7 @@ pipeline {
             }
         }
         stage('Build Image') {
+            agent {label 'docker-slave'}
             steps {
                 //bat "docker build -t='hendryang91/selenium-docker' ."
                 script {
@@ -23,6 +25,7 @@ pipeline {
             }
         }
         stage('Push Image') {
+            agent {label 'docker-slave'}
             steps {
                 /* withCredentials([usernamePassword(credentialsId: 'Dockerhub_creds', passwordVariable: 'pass' , usernameVariable: 'user']) {
                         bat 'docker login --username=${user} --password=${pass}'
