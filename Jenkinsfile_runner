@@ -3,10 +3,10 @@ pipeline {
     stages {
         stage ("Setup environment") {
             steps {
-                sh "apk update && apk add py-pip python3-dev libffi-dev openssl-dev gcc libc-dev make"
-                sh "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" // install rust
-                sh "source $HOME/.cargo/env" // configure rust environment path
-                sh "pip install docker-compose"
+                // sh "apk update && apk add py-pip python3-dev libffi-dev openssl-dev gcc libc-dev make"
+                // sh "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y" // install rust
+                // sh "source $HOME/.cargo/env" // configure rust environment path
+                // sh "pip install docker-compose"
                 sh "docker-compose down"
             }
         }
