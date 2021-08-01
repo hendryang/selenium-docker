@@ -8,7 +8,6 @@ pipeline {
                     args '-v $HOME/.m2:/root/.m2'
                     label 'docker-slave'
                 }
-
             }
             steps {
                 sh 'mvn clean package -DskipTests'
@@ -16,11 +15,10 @@ pipeline {
             }
         }
         stage('Build Image') {
-            agent {label 'docker-slave'}
             steps {
                 //bat "docker build -t='hendryang91/selenium-docker' ."
                 script {
-                	def app = docker.build("hendryang91/selenium-docker")
+                	app = docker.build("hendryang91/selenium-docker")
                 }
             }
         }
