@@ -2,6 +2,7 @@ package com.tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -26,11 +27,14 @@ public class Base2Test {
         String host = "localhost";
         DesiredCapabilities dc ;
 
+        ChromeOptions opts = new ChromeOptions();
         // get browser
         if (System.getProperty("BROWSER") != null && System.getProperty("BROWSER").equalsIgnoreCase("firefox")){
             dc = DesiredCapabilities.firefox();
         } else {
             dc = DesiredCapabilities.chrome();
+
+            opts.setHeadless(true);
         }
 
         // get hub url
@@ -43,7 +47,7 @@ public class Base2Test {
         try {
             if ( host.equalsIgnoreCase("local") ) {
                 System.setProperty("webdriver.chrome.driver" , System.getProperty("user.dir") + File.separator + "src/test/resources/chromedriver" );
-                this.driver = new ChromeDriver();
+                this.driver = new ChromeDriver(opts);
             } else {
                 this.driver = new RemoteWebDriver( new URL(hubURL) , dc );
             }
