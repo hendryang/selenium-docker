@@ -12,7 +12,8 @@ pipeline {
         }
         stage ("Execute Test") {
             steps {
-                sh "docker-compose up --no-color"
+                sh "docker-compose up --no-color -d selenium-hub chrome firefox --scale chrome=2 firefox=2"
+                sh "docker-compose up search-module"
             }
         }
         stage ("Teardown environment") {
