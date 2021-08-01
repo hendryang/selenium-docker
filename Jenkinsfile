@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent {label 'docker-slave'}
     stages {
         stage('Build Jar') {
             agent {
@@ -17,11 +17,6 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                agent {
-                    docker {
-                        label 'docker-slave'
-                    }
-                }
                 //bat "docker build -t='hendryang91/selenium-docker' ."
                 script {
                 	def app = docker.build("hendryang91/selenium-docker")
@@ -29,11 +24,6 @@ pipeline {
             }
         }
         stage('Push Image') {
-             agent {
-                docker {
-                    label 'docker-slave'
-                }
-            }
             steps {
                 /* withCredentials([usernamePassword(credentialsId: 'Dockerhub_creds', passwordVariable: 'pass' , usernameVariable: 'user']) {
                         bat 'docker login --username=${user} --password=${pass}'
