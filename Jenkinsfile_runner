@@ -8,11 +8,11 @@ pipeline {
                 // sh "source $HOME/.cargo/env" // configure rust environment path
                 // sh "pip install docker-compose"
                 sh "docker-compose down"
+                sh "docker-compose up --no-color -d selenium-hub chrome firefox"
             }
         }
         stage ("Execute Test") {
             steps {
-                sh "docker-compose up --no-color -d selenium-hub chrome firefox"
                 sh "docker-compose up --no-color bookflight-module"
             }
         }
