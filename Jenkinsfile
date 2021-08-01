@@ -19,7 +19,7 @@ pipeline {
             steps {
                 //bat "docker build -t='hendryang91/selenium-docker' ."
                 script {
-                	app = docker.build("hendryang91/selenium-docker")
+                	def app = docker.build("hendryang91/selenium-docker")
                 }
             }
         }
