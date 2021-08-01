@@ -41,7 +41,12 @@ public class Base2Test {
         // connect to remote webdriver
         String hubURL = "http://" + host + ":4444/wd/hub";
         try {
-            this.driver = new RemoteWebDriver( new URL(hubURL) , dc );
+            if ( host.equalsIgnoreCase("local") ) {
+                System.setProperty("webdriver.chrome.driver" , System.getProperty("user.dir") + File.separator + "src/test/resources/chromedriver" );
+                this.driver = new ChromeDriver();
+            } else {
+                this.driver = new RemoteWebDriver( new URL(hubURL) , dc );
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
