@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'docker-slave'}
+    agent {label 'docker-slave-cloud'}
     stages {
         stage ("Setup environment") {
             steps {
