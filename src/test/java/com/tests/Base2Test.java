@@ -46,7 +46,7 @@ public class Base2Test {
         String hubURL = "http://" + host + ":4444/wd/hub";
         try {
             if ( host.equalsIgnoreCase("local") ) {
-                System.setProperty("webdriver.chrome.driver" , System.getProperty("user.dir") + File.separator + "src/test/resources/chromedriver" );
+                System.setProperty("webdriver.chrome.driver" , System.getProperty("user.dir") + File.separator + "src/test/resources/chromedriver_linux" );
                 this.driver = new ChromeDriver(opts);
             } else {
                 this.driver = new RemoteWebDriver( new URL(hubURL) , dc );
